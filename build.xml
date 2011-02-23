@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir=".">
+
+    <target name="clean" description="cleans up build">
+        <delete dir="target"/>
+    </target>
+
+    <path id="compileClassPath">
+        <fileset dir="lib/jars" includes="**/*.jar" />
+    </path>
+
+    <path id="testClassPath">
+        <path refid="compileClassPath"/>
+        <fileset dir="lib/testJars" includes="**/*.jar" />
+        <pathelement location="target/classes/main" />
+        <pathelement location="target/classes/unit/test" />
+    </path>
+
+    <target name="compile" description="compile source code">
+        <compileTaskDef sourceLocation="src/main/scala" outputLocation="target/classes/main"
+                        classPathId="compileClassPath"/>
+    </target>
+
+    <target name="compileUnitTest" depends="compile" description="compiles test source code">
+        <compileTaskDef sourceLocation="src/test/unit/scala" outputLocation="target/classes/unit/test"
+                        classPathId="testClassPath"/>
+    </target>
+
+    <target name="runUnitTests" depends="compileUnitTest" description="run unit tests">
+        <mkdir dir="target/reports/junit/xml"/>
+        <junit printsummary="true" failureproperty="build.failed" errorproperty="build.failed">
+            <formatter type="xml" />
+            <classpath refid="testClassPath"/>
+            <batchtest todir="target/reports/junit/xml">
+                <fileset dir="src/test/unit/scala">
+                    <include name="**/*.scala"/>
+                </fileset>
+            </batchtest>
+        </junit>
+        <junitreport todir="target/reports/junit">
+            <fileset dir="target/reports/junit/xml">
+                <include name="**/*.xml" />
+            </fileset>
+            <report todir="target/reports/junit" format="frames" />
+        </junitreport>
+        <fail if="build.failed" message="Build Failed please see target/reports/junit/index.html" />
+    </target>
+
+    <target name="jar" depends="clean, runUnitTests" description="build jar">
+        <jar destfile="target/accordion-scala-0.0.1.jar">
+            <fileset dir="target/classes/main">
+                <include name="**/*"/>
+            </fileset>
+        </jar>
+    </target>
+
+    <taskdef resource="scala/tools/ant/antlib.xml">
+        <classpath>
+            <pathelement location="lib/jars/scala-compiler-2.8.1.jar"/>
+            <pathelement location="lib/jars/scala-library-2.8.1.jar"/>
+        </classpath>
+    </taskdef>
+
+    <macrodef name="compileTaskDef">
+        <attribute name="sourceLocation"/>
+        <attribute name="outputLocation"/>
+        <attribute name="classpathId"/>
+        <sequential>
+            <mkdir dir="@{outputLocation}"/>
+            <scalac classpathref="@{classpathId}" srcdir="@{sourceLocation}" destdir="@{outputLocation}"/>
+            <copy todir="@{outputLocation}">
+                <fileset dir="@{sourceLocation}" includes="**/*.scala" />
+            </copy>
+        </sequential>
+    </macrodef>
+
+</project>

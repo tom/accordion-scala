@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="test">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/testJars/jmock-script-2.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/testJars/jmock-legacy-2.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/testJars/objenesis-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/testJars/bsh-core-2.0b4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/testJars/cglib-nodep-2.1_3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/testJars/cglib-2.1_3-src.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/testJars/jmock-junit4-2.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/testJars/jmock-2.5.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

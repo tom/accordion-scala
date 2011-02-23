@@ -1,0 +1,38 @@
+<html xmlns:cn="http://www.concordion.org/2007/concordion"
+      xmlns:tom="http://www.tommalone.net">
+<head>
+    <title>Hamcrest Command Test</title>
+    <link rel="stylesheet" href="../concordion.css" media="screen"/>
+</head>
+<body>
+<div class="example">
+    <h3>Scala Verify Rows Test</h3>
+    <table tom:verifyRows="#person : people">
+        <thead>
+        <tr>
+            <th cn:assertEquals="#person.name">Name</th>
+            <th cn:assertEquals="#person.age">Age</th>
+            <th cn:assertEquals="#person.gender">Gender</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Tom</td>
+            <td>28</td>
+            <td>Male</td>
+        </tr>
+        <tr>
+            <td>Anna</td>
+            <td>23</td>
+            <td>Female</td>
+        </tr>
+        <tr>
+            <td>James</td>
+            <td>30</td>
+            <td>Male</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
